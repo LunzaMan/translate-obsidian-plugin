@@ -1,8 +1,31 @@
-/*
+.container{
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	
+	margin: 10px;
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.box {
+	padding: 10px;
+	margin-bottom: 10px;
+}
 
-If your plugin does not need CSS, delete this file.
+.label {
+	display: flex;
+	padding-top: 10px;
+}
 
-*/
+.button  {
+	height: 2rem;
+
+	
+}
+
+h1{
+	color: blue;
+	display: flex;
+	justify-content: center;
+	aligin-items: center;
+}
+
