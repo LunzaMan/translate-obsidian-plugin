@@ -1,13 +1,17 @@
 import { ItemView, WorkspaceLeaf, Notice } from "obsidian";
 import translators from "./translators";
+import { TranslatePluginSettings } from "./settings";
+
 export const TranslateViewType = 'translate-toolbar';
 
 
 export class TranslateView extends ItemView {
 	outputText: string;
+	settings: TranslatePluginSettings;
 
-	constructor(leaf: WorkspaceLeaf) {
+	constructor(leaf: WorkspaceLeaf, settings: TranslatePluginSettings) {
 		super(leaf);
+		this.settings = settings;
 	}
 
 	getViewType(): string {
@@ -19,6 +23,8 @@ export class TranslateView extends ItemView {
 	}
 
 	async onOpen() {
+
+
 		const container = this.containerEl
 		container.empty();
 		const innerContainer = this.containerEl.createDiv({ cls: 'container' });
@@ -34,9 +40,8 @@ export class TranslateView extends ItemView {
 
 				console.log(input.value)
 				if (input.value != null || input.value != "") {
-					const inputText = input.value;
 					const translatorObject = new translators();
-					await translatorObject.myMemoryAPICall(inputText);
+					await translatorObject.translatorReturnFunction(input.value, this.settings.toLanguage, this.settings.fromLanguage, this.settings.activeAPI);
 					output.value = translatorObject.outputText ? translatorObject.outputText : "this is null";
 				}
 
@@ -51,35 +56,6 @@ export class TranslateView extends ItemView {
 		});
 
 	}
-
-
-
-
-
-	// async myMemoryAPICall(inputWord: string) {
-	//
-	// 	const response = await fetch(`https://api.mymemory.translated.net/get?q=${inputWord}&langpair=en|ja`);
-	//
-	// 	if (response.status == 200) {
-	// 		const json = await response.json();
-	// 		if (json.responseStatus == 200) {
-	//
-	// 			const translatedText = json.responseData.translatedText;
-	// 			this.outputText = translatedText;
-	// 			console.log(translatedText);
-	// 			console.log(this.outputText)
-	// 		} else {
-	// 			this.outputText = "403"
-	// 		}
-	//
-	// 	} else {
-	// 		console.log("error");
-	//
-	//
-	// 	}
-	//
-	//
-	// }
 }
 
 
