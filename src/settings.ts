@@ -8,7 +8,7 @@ export interface ISettings {
 }
 
 export const defaultSettings: ISettings = {
-	activeAPI: 'My Memory',
+	activeAPI: 'Projectsegfau',
 	fromLanguage: 'auto',
 	toLanguage: 'en',
 }
@@ -28,7 +28,13 @@ export class TranslateSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		new Setting(containerEl).setName('Language Selection').setHeading().setDesc("Check from github");
+		new Setting(containerEl)
+			.setName('Language Selection')
+			.setHeading()
+			.setDesc(
+				"For language codes check respective api's website." +
+				"\nAuto doesn't work for My Memory"
+			);
 
 		new Setting(containerEl)
 			.setName('Input Language')

@@ -27,7 +27,7 @@ export default class TranslatePlugin extends Plugin {
 			(leaf) => new TranslateView(leaf, this.settings)
 		);
 
-		this.addRibbonIcon('dice', 'Translate Plugin', (_evt: MouseEvent) => {
+		this.addRibbonIcon('languages', 'Translate Plugin', (_evt: MouseEvent) => {
 			this.activateView();
 		});
 

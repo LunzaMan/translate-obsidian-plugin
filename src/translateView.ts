@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, Notice } from "obsidian";
+import { ItemView, WorkspaceLeaf, Notice, IconName } from "obsidian";
 import translators from "./translators";
 import { TranslatePluginSettings } from "./settings";
 
@@ -20,6 +20,10 @@ export class TranslateView extends ItemView {
 
 	getDisplayText(): string {
 		return 'Translate View'
+	}
+
+	getIcon(): IconName {
+		return "languages"
 	}
 
 	async onOpen() {

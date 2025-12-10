@@ -1,11 +1,10 @@
 {
-	"id": "google-translate-plugin",
+	"id": "translate-obsidian-plugin",
 	"name": "Translate Plugin",
 	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Using Google Translate API to translate words inside Obsidian.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+	"minAppVersion": "1.10.6",
+	"description": "Translate texts directly from editor or sidebar.",
+	"author": "Lunza Man Tuladhar",
+	"authorUrl": "https://github.com/LunzaMan",
+	"isDesktopOnly": true
 }
