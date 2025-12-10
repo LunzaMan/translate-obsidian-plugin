@@ -24,14 +24,14 @@ export default class TranslatePlugin extends Plugin {
 			(leaf) => new TranslateView(leaf, this.settings)
 		);
 
-		this.addRibbonIcon('languages', 'Translate Plugin', (_evt: MouseEvent) => {
-			this.activateView();
+		this.addRibbonIcon('languages', 'Inline translator', async (_evt: MouseEvent) => {
+			await this.activateView();
 		});
 
 		// Commands
 		this.addCommand({
-			id: 'translateSelectedCommand',
-			name: 'Translate Selected',
+			id: 'translateSelected',
+			name: 'Translate selected',
 			editorCallback: async (editor: Editor) => {
 				const inputText = editor.getSelection();
 				const translatorObject = new translators;
@@ -42,8 +42,8 @@ export default class TranslatePlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'replaceSelectedWithTranslationCommand',
-			name: 'Replace With Translation',
+			id: 'replaceSelectedWithTranslation',
+			name: 'Replace with translation',
 			editorCallback: async (editor: Editor) => {
 				const inputText = editor.getSelection();
 				const translatorObject = new translators;
@@ -54,12 +54,12 @@ export default class TranslatePlugin extends Plugin {
 
 		this.addCommand({
 			id: 'copyTranslationToClipboard',
-			name: 'Translate and Copy to Clipboard',
+			name: 'Translate and copy to clipboard',
 			editorCallback: async (editor: Editor) => {
 				const inputText = editor.getSelection();
 				const translatorObject = new translators;
 				await translatorObject.translatorReturnFunction(inputText, this.settings.toLanguage, this.settings.fromLanguage, this.settings.activeAPI);
-				navigator.clipboard.writeText(translatorObject.outputText);
+				await navigator.clipboard.writeText(translatorObject.outputText);
 				new Notice(translatorObject.outputText +
 					"\nCopied to clipboard"
 				)
@@ -84,13 +84,13 @@ export default class TranslatePlugin extends Plugin {
 
 		}
 
-		workspace.revealLeaf(leaf);
+		await workspace.revealLeaf(leaf);
 	}
 
 	async loadSettings() {
-		const currentSettings = Object.assign(defaultSettings, await this.loadData());
+		const currentSettings = Object.assign({}, defaultSettings, await this.loadData());
 		this.settings = new TranslatePluginSettings(currentSettings);
-		this.saveData(this.settings);
+		await this.saveData(this.settings);
 	}
 
 	async saveSettings() {
@@ -105,15 +105,15 @@ export class TranslatedModal extends Modal {
 	displayText: string;
 	constructor(app: App, displayText: string) {
 		super(app);
-		this.setTitle('Translated Text');
+		this.setTitle('Translated text');
 		this.setContent(displayText);
 
 		new Setting(this.contentEl)
 			.addButton((copyButton) => {
 				copyButton
 					.setButtonText("Copy")
-					.onClick(() => {
-						navigator.clipboard.writeText(displayText);
+					.onClick(async () => {
+						await navigator.clipboard.writeText(displayText);
 						this.close();
 						new Notice("Copied to clipboard");
 					})

@@ -1,3 +1,4 @@
+import { requestUrl } from "obsidian";
 
 export interface APIArguments {
 	inputWord: string;
@@ -32,24 +33,20 @@ export default class translators {
 
 	async myMemoryAPICall(args: APIArguments) {
 
-		const response = await fetch(`https://api.mymemory.translated.net/get?q=${args.inputWord}&langpair=${args.fromLanguage}|${args.toLanguage}`);
+		const response = await requestUrl(`https://api.mymemory.translated.net/get?q=${args.inputWord}&langpair=${args.fromLanguage}|${args.toLanguage}`);
 
 		if (response.status == 200) {
-			const json = await response.json();
+			const json = await response.json;
 			if (json.responseStatus == 200) {
 
 				const translatedText = json.responseData.translatedText;
 				this.outputText = translatedText;
-				// const baseURL = "https://translate.projectsegfau.lt/"
 			} else {
-				this.outputText = "403"
+				this.outputText = "Error connecting to the API, please use a different API"
 			}
 
 		} else {
-
-			console.log("error");
-
-
+			this.outputText = "Error connecting to the API, please use a different API"
 		}
 
 
@@ -61,13 +58,13 @@ export default class translators {
 		const encodedWord = encodeURIComponent(args.inputWord);
 		// const baseURL = "https://lingva.garudalinux.org/"
 		const baseURL = "https://lingva.ml/"
-		const response = await fetch(`${baseURL}api/v1/${args.fromLanguage}/${args.toLanguage}/${encodedWord}`)
+		const response = await requestUrl(`${baseURL}api/v1/${args.fromLanguage}/${args.toLanguage}/${encodedWord}`)
 
 		if (response.status == 200) {
-			const json = await response.json();
+			const json = await response.json;
 			this.outputText = json.translation;
 		} else {
-			console.log("error occured");
+			this.outputText = "Error connecting to the API, please use a different API"
 		}
 
 
@@ -78,10 +75,12 @@ export default class translators {
 		const encodedWord = encodeURIComponent(args.inputWord);
 		const baseURL = 'https://translate.projectsegfau.lt/api/translate?engine=google&';
 
-		const response = await fetch(`${baseURL}from=${args.fromLanguage}&to=${args.toLanguage}&text=${encodedWord}`);
+		const response = await requestUrl(`${baseURL}from=${args.fromLanguage}&to=${args.toLanguage}&text=${encodedWord}`);
 		if (response.status == 200) {
-			const json = await response.json();
+			const json = await response.json;
 			this.outputText = json["translated-text"]
+		} else {
+			this.outputText = "Error connecting to the API, please use a different API"
 		}
 	}
 }

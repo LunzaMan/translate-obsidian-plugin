@@ -30,7 +30,7 @@ export class TranslateSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Language Selection')
+			.setName('Language selection')
 			.setHeading()
 			.setDesc(
 				"For language codes check respective api's website." +
@@ -38,41 +38,41 @@ export class TranslateSettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName('Input Language')
+			.setName('Input language')
 			.addText((text) =>
 				text
 					.setPlaceholder('auto')
 					.setValue(this.plugin.settings.fromLanguage)
 					.onChange(async (value) => {
 						this.plugin.settings.fromLanguage = value;
-						this.plugin.saveSettings();
+						await this.plugin.saveSettings();
 					})
 			)
 
 		new Setting(containerEl)
-			.setName('Output Language')
+			.setName('Output language')
 			.addText((text) =>
 				text
 					.setPlaceholder('en')
 					.setValue(this.plugin.settings.toLanguage)
 					.onChange(async (value) => {
 						this.plugin.settings.toLanguage = value;
-						this.plugin.saveSettings();
+						await this.plugin.saveSettings();
 					})
 			)
 
 
 		new Setting(containerEl)
-			.setName('Translation Model Selection')
+			.setName('Translation model selection')
 			.addDropdown((dropdown) =>
 				dropdown
-					.addOption('My Memory', 'My Memory')
+					.addOption('My memory', 'My Memory')
 					.addOption('Lingva', 'Lingva')
 					.addOption('Projectsegfau', 'Projectsegfau')
 					.setValue(this.plugin.settings.activeAPI)
 					.onChange(async (value) => {
 						this.plugin.settings.activeAPI = value;
-						this.plugin.saveData(this.plugin.settings)
+						await this.plugin.saveData(this.plugin.settings)
 						await this.plugin.saveSettings();
 					})
 			)

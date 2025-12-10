@@ -19,7 +19,7 @@ export class TranslateView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return 'Translate View'
+		return 'Translate view'
 	}
 
 	getIcon(): IconName {
@@ -30,14 +30,14 @@ export class TranslateView extends ItemView {
 		const container = this.containerEl
 		container.empty();
 		const innerContainer = this.containerEl.createDiv({ cls: 'container' });
-		innerContainer.createEl('h1', { text: 'Translate Plugin' })
+		innerContainer.createEl('h1', { text: 'Inline translator' })
 
 		const inputLabel = innerContainer.createEl('label', { text: 'Input', cls: 'label' });
 		const inputLanguageSelector = inputLabel.createEl('input', { cls: 'languageInput', placeholder: 'Input Language' })
 		const input = innerContainer.createEl('input', { cls: 'box', placeholder: 'Write text you want to translate' });
 
 		const translateButton = innerContainer.createEl('button', { text: 'Translate', cls: 'button' })
-		const swapButton = innerContainer.createEl('button', { text: 'Swap Language', cls: 'button' })
+		const swapButton = innerContainer.createEl('button', { text: 'Swap language', cls: 'button' })
 
 		const outputLabel = innerContainer.createEl('label', { text: 'Output', cls: 'label' })
 		const outputLanguageSelector = outputLabel.createEl('input', { cls: 'languageInput', placeholder: 'Output Language' })
@@ -69,8 +69,8 @@ export class TranslateView extends ItemView {
 		)
 
 
-		copyButton.onClickEvent(() => {
-			navigator.clipboard.writeText(output.value)
+		copyButton.onClickEvent(async () => {
+			await navigator.clipboard.writeText(output.value)
 			new Notice('Copied to clipboard');
 		});
 
