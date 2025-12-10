@@ -1,6 +1,6 @@
 {
-	"id": "translate",
-	"name": "Translate",
+	"id": "inline-translator",
+	"name": "Inline Translator",
 	"version": "1.0.0",
 	"minAppVersion": "1.10.6",
 	"description": "Translate texts directly from editor or sidebar.",
